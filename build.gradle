@@ -10,7 +10,8 @@ plugins {
 	id 'java'
 	id 'eclipse'
 	id 'eclipse-wtp'
-	id 'war'
+	//id 'war'
+	id 'java-library'
 }
 
 group = 'com.spotter'
@@ -22,7 +23,7 @@ repositories {
 	mavenLocal()
 }
 
-project.webAppDirName = 'WebContent'
+//project.webAppDirName = 'WebContent'
 
 springBoot{
 	buildInfo()
@@ -46,7 +47,7 @@ dependencies {
 
 	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
 
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	//providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	
 	compileOnly 'org.projectlombok:lombok:1.18.12'
 	annotationProcessor 'org.projectlombok:lombok:1.18.12'	
@@ -57,42 +58,8 @@ dependencies {
 	testCompile('org.springframework.security:spring-security-test')
 }
 
-/*
-springBoot{
-	buildInfo()
-}
 
-dependencies {
-	compile 'org.springframework.boot:spring-boot'
-	compile 'org.springframework.boot:spring-boot-starter-web'
-	compile 'org.springframework.boot:spring-boot-starter-actuator'
-	compile 'org.springframework.boot:spring-boot-starter-hateoas'
-	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-	compile 'org.springframework.boot:spring-boot-starter-security'
-	compile 'org.apache.httpcomponents:httpclient:4.5.12'
-	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-	compileOnly 'org.projectlombok:lombok:1.18.12'
-	annotationProcessor 'org.projectlombok:lombok:1.18.12'	
-	testCompileOnly 'org.projectlombok:lombok:1.18.12'
-	testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'		
-	
-	compile 'org.json:json:20180813'
-	compile 'org.apache.poi:poi:4.1.1'
-	compile 'org.apache.poi:poi-ooxml:4.1.1'
-	compile 'commons-io:commons-io:2.6'
-	compile 'org.apache.commons:commons-csv:1.6'
-	
-		testCompile('org.springframework.boot:spring-boot-starter-test'){
-     	exclude group: 'org.skyscreamer', module: 'jsonassert' 
-  	}
-	testCompile('org.springframework.security:spring-security-test')
-	testCompile 'org.apache.commons:commons-dbcp2'
-	testCompile 'junit:junit'
-    testCompile 'com.google.code.gson:gson'
-    testCompile 'org.jmockit:jmockit:1.9'
-}
-*/
+
 test {
 	useJUnitPlatform()
 }
