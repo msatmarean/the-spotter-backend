@@ -46,4 +46,9 @@ public class CategoriesServiceImpl implements CategoriesService {
 
   }
 
+  @Override
+  public void update(FoodCategories entity) {
+    repository.save(entity);
+  }
+
 }

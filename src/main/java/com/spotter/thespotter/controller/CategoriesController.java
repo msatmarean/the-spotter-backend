@@ -35,4 +35,9 @@ public class CategoriesController {
     service.delete(ids);
   }
 
+  @PutMapping("/update")
+  public void update(@RequestBody FoodCategories entity) {
+    service.update(entity);
+  }
+
 }

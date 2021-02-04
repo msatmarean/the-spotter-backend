@@ -10,4 +10,6 @@ public interface CategoriesService {
   public void create(String name);
 
   public Integer delete(List<Long> ids);
+
+  public void update(FoodCategories entity);
 }
