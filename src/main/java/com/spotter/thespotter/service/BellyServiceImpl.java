@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BellyServiceImpl implements BellyService {
@@ -29,6 +30,7 @@ public class BellyServiceImpl implements BellyService {
   private UserRepository userRepository;
 
 
+  @Transactional
   @Override
   public Belly eat(BellyAddRequestModel request) {
 

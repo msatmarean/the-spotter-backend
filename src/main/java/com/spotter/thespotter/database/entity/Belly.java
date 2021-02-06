@@ -11,10 +11,8 @@ import javax.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.transaction.annotation.Transactional;
 
 @Entity
-@Transactional
 @Getter
 @Setter
 @NoArgsConstructor
