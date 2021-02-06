@@ -2,12 +2,14 @@ package com.spotter.thespotter.service;
 
 import com.spotter.thespotter.database.entity.User;
 import com.spotter.thespotter.database.repository.UserRepository;
+import com.spotter.thespotter.exceptions.BusineessException;
 import com.spotter.thespotter.model.UserModel;
 import com.spotter.thespotter.model.UserRequestModel;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,7 @@ public class UserServiceImpl implements UserService {
     return ((Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getClaimAsString(claimName);
   }
 
+  @Transactional
   public UserModel getUserModel() {
     UserModel userModel = new UserModel();
 
@@ -44,9 +47,15 @@ public class UserServiceImpl implements UserService {
     Optional<User> user = userRepository.findByUserIdpId(getCurrentUserId());
 
     if (user.isPresent()) {
-      userModel.setProteinsGoal(user.get().getProteinGoal());
-      userModel.setCarbsGoal(user.get().getCarbsGoal());
-      userModel.setFatsGoal(user.get().getFatsGoal());
+      userModel.setUser(user.get());
+    } else {
+      User newUser = new User();
+      newUser.setIdpUserId(getCurrentUserId());
+      newUser.setCarbsGoal(0);
+      newUser.setProteinGoal(0);
+      newUser.setFatsGoal(0);
+
+      userModel.setUser(userRepository.saveAndFlush(newUser));
     }
 
     return userModel;
@@ -72,6 +81,12 @@ public class UserServiceImpl implements UserService {
 
     userRepository.saveAndFlush(userEntity);
 
+  }
+
+  @Override
+  public User getCurrentUserEntity() {
+    return userRepository.findByUserIdpId(getCurrentUserId())
+        .orElseThrow(() -> new BusineessException("user not found", HttpStatus.INTERNAL_SERVER_ERROR));
   }
 
 }

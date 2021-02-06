@@ -20,10 +20,15 @@ public class FoodServiceImpl implements FoodService {
 
   @Autowired
   private CategoriesRepository categoriesRepository;
+  @Autowired
+  private UserService userService;
 
   @Override
   public Food save(Food food) {
+
+    food.setOwner(userService.getCurrentUserEntity());
     food.setDeleteFlag("N");
+
     return foodRepository.save(food);
   }
 
@@ -60,6 +65,7 @@ public class FoodServiceImpl implements FoodService {
     foodEntity.setFats(food.getFats());
     foodEntity.setFiber(food.getFiber());
     foodEntity.setProteins(food.getProteins());
+    foodEntity.setGramsPerServing(food.getGramsPerServing());
     foodEntity.setFoodCategory(categoryEntity);
     foodEntity.getFoodDescription().setDescription(food.getFoodDescription().getDescription());
     foodEntity.getFoodDescription().setName(food.getFoodDescription().getName());

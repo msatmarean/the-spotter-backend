@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,8 +32,12 @@ public class Food implements Serializable {
   private double carbs;
   private double fiber;
   private double calories;
+  private double gramsPerServing;
   @Column(length = 1)
   private String deleteFlag;
+
+  @ManyToOne(cascade = {CascadeType.ALL})
+  private User owner;
 
   @OneToOne
   @JoinColumn(name = "catId")
